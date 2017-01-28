@@ -1,0 +1,53 @@
+version: '2'
+services:
+  django:
+    build: ./django/
+    volumes:
+      - ./django:/app
+      - ./static:/static
+      - ./logs:/logs
+    env_file: dev.env
+
+  uwsgi:
+    extends: django
+    restart: always
+    command: uwsgi
+    links:
+      - postgres
+      - redis
+    expose:
+      - "8000"
+
+  celery:
+    extends: django
+    restart: always
+    command: celery
+
+  nginx:
+    build: ./nginx/
+    restart: always
+    ports:
+      - "8000:80"
+    volumes:
+      - ./static:/static
+
+  # RabbitMQ message queue
+  # default username:password is guest:guest
+  rabbit:
+    image: rabbitmq:3.6
+
+  # PostgreSQL database
+  postgres:
+    image: postgres:9.6
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+
+  # Redis key value store
+  redis:
+    image: redis:3.2
+    volumes:
+      - redisdata:/data
+
+volumes:
+  redisdata: {}
+  pgdata: {}

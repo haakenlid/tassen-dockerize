@@ -1,0 +1,44 @@
+{% load cache %}
+{% load universitas_menu %}
+{% load static %}
+{% load render_bundle from webpack_loader %}
+<!DOCTYPE html>
+<html class="no-js" lang="{{ LANGUAGE_CODE }}">
+  <head>
+    <title>{% block title %}universitas.no{% endblock %}</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% include "_favicons.html" %}
+    {% include "_google-analytics.html" %}
+    {% block head %}{% endblock head %}
+    {% render_bundle 'stylesheets' 'css' %}
+    {% render_bundle 'head' 'js' %}
+  </head>
+
+  <body>
+    <header id="sticky-top-menu" class="fixedsticky">
+      {% cache 60 top-menu %}
+      {% universitas_menu "" %}
+      {% endcache %}
+    </header>
+    <main>
+      <div class="content-wrapper">
+        {% block columns %}{% endblock %}
+        {% block content %}
+        <p>Main content of page</p>
+        {% endblock content %}
+      </div>
+    </main>
+    {% block footer %}
+    <footer>
+      <div class="row">
+        <div class="col medium-9 small-12 large-4"></div>
+      </div>
+    </footer>
+    {% endblock footer %}
+
+    {% render_bundle 'vendor' 'js' %}
+    {% render_bundle 'site' 'js' %}
+    {# {% include 'autocomplete_light/static.html' %} #}
+  </body>
+</html>

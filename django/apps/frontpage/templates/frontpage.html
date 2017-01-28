@@ -1,0 +1,65 @@
+{% extends "base-template.html" %}
+{% load thumbnail %}
+{% load advert_channel %}
+{% load parse_markup %}
+{% load staticfiles %}
+{% block title %}Universitas – Norges største studentavis{% endblock title %}
+{% block head %}
+  <meta property="og:title" content="Forsiden universitas.no" />
+  <meta property="og:description" content="Norges største studentavis" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="{% static 'images/favicon-128.png' %}" />
+{% endblock head %}
+{% block columns %}
+  {% advert "frontpage column left" %}
+  {% advert "frontpage column right" %}
+{% endblock columns %}
+{% block content %}
+  <div class="main-content">
+    <div id="frontpage" class="row">
+    {% advert "frontpage banner" %}
+    {% for item in frontpage_items %}
+      <article class="{{ item.css_width }} columns">
+        <div class="story-block {{ item.css_height }} {{ item.story.html_class }}">
+          {% if item.image %}
+            <div class="image-block">
+              {% thumbnail item.image item.image_size crop=item.crop as image %}
+                <a href="{{ item.story.url }}"><img src="{{ image.url }}" alt="{{ item.story.headline|strip_tags }}"></img></a>
+              {% endthumbnail %}
+          {% else %}
+            <div class="no-image-block">
+          {% endif %}
+            {% if item.story.vignette %}
+              <div class="vignette">
+              <a href="{{ item.story.story_type_url }}">
+                {{ item.story.vignette }}
+              </a>
+              </div>
+            {% endif %}
+            {% if perms.stories %}
+                {% include "_frontpage-module-edit-menu.html" with item=item %}
+            {% endif %}
+          </div>
+          <div class="text-block">
+            {% if item.story.headline %}
+              <div class="headline-block {{ item.headline_class }}">
+              <a href="{{ item.story.url }}">
+              {% if item.story.kicker %}
+                <h2 class="frontpage-kicker">{{ item.story.kicker|inline_tags }}</h2>
+              {% endif %}
+                <h1 class="frontpage-headline ">
+                    {{ item.story.headline|inline_tags }}
+                </h1>
+              </a>
+            </div>
+            {% endif %}
+            {% if item.story.lede %}
+              <p class="lede">{{ item.story.lede|inline_tags }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </article>
+    {% endfor %}
+    </div>
+  </div>
+{% endblock content %}
