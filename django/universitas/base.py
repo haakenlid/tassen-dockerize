@@ -18,18 +18,22 @@ DEBUG = False
 RAVEN_CONFIG = {'dsn': environment_variable('RAVEN_DSN'), }
 SENTRY_CLIENT = 'raven.contrib.django.raven_compat.DjangoClient'
 
-redis_host = 'localhost'
+redis_host = 'redis'
 redis_port = 6379
 
 # CELERY TASK RUNNER
 CELERY_TASK_DEFAULT_QUEUE = SITE_URL
 CELERY_ACCEPT_CONTENT = ['json', 'pickle']
 CELERY_TASK_SERIALIZER = 'json'
-CELERY_BROKER_URL = 'redis://{}:{}/{}'.format(redis_host, redis_port, 5)
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_RESULT_BACKEND = 'redis://{}:{}/{}'.format(redis_host, redis_port, 5)
 CELERYD_HIJACK_ROOT_LOGGER = False
 CELERY_BROKER_TRANSPORT_OPTIONS = {'fanout_prefix': True}
+
+# Rabbitmq
+CELERY_BROKER_URL = 'amqp://guest:guest@rabbit//?heartbeat=30'
+CELERY_BROKER_POOL_LIMIT = 1
+CELERY_BROKER_CONNECTION_TIMEOUT = 10
 
 # AMAZON WEB SERVICES
 AWS_STORAGE_BUCKET_NAME = environment_variable('AWS_STORAGE_BUCKET_NAME')
@@ -124,6 +128,7 @@ THUMBNAIL_BACKEND = 'apps.photo.thumb_utils.KeepNameThumbnailBackend'
 THUMBNAIL_FORCE_OVERWRITE = True
 THUMBNAIL_PREFIX = 'thumb-cache/'
 THUMBNAIL_REDIS_DB = 1
+THUMBNAIL_REDIS_HOST = redis_host
 THUMBNAIL_KEY_PREFIX = SITE_URL
 THUMBNAIL_URL_TIMEOUT = 3
 
@@ -176,17 +181,14 @@ PROJECT_DIR = dirname(BASE_DIR)
 # Django puts generated translation files here.
 LOCALE_PATHS = [join_path(BASE_DIR, 'translation'), ]
 # Extra path to collect static assest such as javascript and css
-STATICFILES_DIRS = [
-    join_path(PROJECT_DIR, 'build'),
-]
+STATICFILES_DIRS = ['/build/']
 # Project wide fixtures to be loaded into database.
 FIXTURE_DIRS = [join_path(BASE_DIR, 'fixtures'), ]
 # Look for byline images here
 BYLINE_PHOTO_DIR = '/srv/fotoarkiv_universitas/byline/'
 STAGING_ROOT = '/srv/fotoarkiv_universitas/'
 
-
-# INTERNATIONALIZATION
+# INTERNATIONALIZATIONh
 LANGUAGE_CODE = 'nb'
 LANGUAGES = [
     ('nb', _('Norwegian Bokmal')),
@@ -233,6 +235,6 @@ WEBPACK_LOADER = {
     'DEFAULT': {
         'CACHE': not DEBUG,
         'BUNDLE_DIR_NAME': './',  # must end with slash
-        'STATS_FILE': join_path(PROJECT_DIR, 'webpack-stats.json'),
+        'STATS_FILE': '/build/webpack-stats.json',
     }
 }

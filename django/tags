@@ -52,9 +52,10 @@ CASCADE_FILE	apps/photo/autocrop.py	/^CASCADE_FILE = os.path.join($/;"	v
 CATEGORY_CHOICES	apps/adverts/models.py	/^    CATEGORY_CHOICES = [(PRINT, _('print')), (WEB, _('web')), ]$/;"	v	class:AdFormat
 CELERYD_HIJACK_ROOT_LOGGER	universitas/base.py	/^CELERYD_HIJACK_ROOT_LOGGER = False$/;"	v
 CELERY_ACCEPT_CONTENT	universitas/base.py	/^CELERY_ACCEPT_CONTENT = ['json', 'pickle']$/;"	v
+CELERY_BROKER_CONNECTION_TIMEOUT	universitas/base.py	/^CELERY_BROKER_CONNECTION_TIMEOUT = 10$/;"	v
+CELERY_BROKER_POOL_LIMIT	universitas/base.py	/^CELERY_BROKER_POOL_LIMIT = 1$/;"	v
 CELERY_BROKER_TRANSPORT_OPTIONS	universitas/base.py	/^CELERY_BROKER_TRANSPORT_OPTIONS = {'fanout_prefix': True}$/;"	v
-CELERY_BROKER_URL	universitas/base.py	/^CELERY_BROKER_URL = 'redis:\/\/localhost:6379\/5'$/;"	v
-CELERY_RESULT_BACKEND	universitas/base.py	/^CELERY_RESULT_BACKEND = 'redis:\/\/localhost:6379\/5'$/;"	v
+CELERY_RESULT_BACKEND	universitas/base.py	/^CELERY_RESULT_BACKEND = 'redis:\/\/{}:{}\/{}'.format(redis_host, redis_port, 5)$/;"	v
 CELERY_RESULT_SERIALIZER	universitas/base.py	/^CELERY_RESULT_SERIALIZER = 'json'$/;"	v
 CELERY_TASK_DEFAULT_QUEUE	universitas/base.py	/^CELERY_TASK_DEFAULT_QUEUE = SITE_URL$/;"	v
 CELERY_TASK_SERIALIZER	universitas/base.py	/^CELERY_TASK_SERIALIZER = 'json'$/;"	v
@@ -196,7 +197,7 @@ LinkAdmin	apps/stories/admin.py	/^class LinkAdmin(admin.ModelAdmin):$/;"	c
 LinkInline	apps/stories/admin.py	/^class LinkInline(admin.TabularInline):$/;"	c
 MAGAZINE	apps/issues/models.py	/^    MAGAZINE = 2$/;"	v	class:Issue
 MAG_PAGES_GLOB	apps/issues/tasks.py	/^MAG_PAGES_GLOB = 'UNI12VER*.pdf'$/;"	v
-MEDIA_ROOT	universitas/local.py	/^MEDIA_ROOT = join_path(PROJECT_DIR, 'media')$/;"	v
+MEDIA_ROOT	universitas/local.py	/^MEDIA_ROOT = '\/app\/media\/'$/;"	v
 MEDIA_URL	universitas/base.py	/^MEDIA_URL = "http:\/\/{host}\/{media}\/".format($/;"	v
 MEDIA_URL	universitas/local.py	/^MEDIA_URL = '\/media\/'$/;"	v
 META_CACHE_KEY	watson/models.py	/^META_CACHE_KEY = "_meta_cache"$/;"	v
@@ -378,7 +379,7 @@ RE_NON_WORD	watson/backends.py	/^RE_NON_WORD = re.compile(r'[&:"(|)!><~*+-]', re
 RE_SPACE	watson/backends.py	/^RE_SPACE = re.compile(r"[\\s]+", re.UNICODE)$/;"	v
 ROOT_URLCONF	universitas/base.py	/^ROOT_URLCONF = 'universitas.urls'$/;"	v
 ROOT_URLCONF	universitas/dev.py	/^ROOT_URLCONF = 'universitas.dev_urls'$/;"	v
-RUNSERVERPLUS_SERVER_ADDRESS_PORT	universitas/local.py	/^RUNSERVERPLUS_SERVER_ADDRESS_PORT = '0.0.0.0:8010'$/;"	v
+RUNSERVERPLUS_SERVER_ADDRESS_PORT	universitas/local.py	/^RUNSERVERPLUS_SERVER_ADDRESS_PORT = '0.0.0.0:8000'$/;"	v
 RegexSearchBackend	watson/backends.py	/^class RegexSearchBackend(RegexSearchMixin, SearchBackend):$/;"	c
 RegexSearchMixin	watson/backends.py	/^class RegexSearchMixin(six.with_metaclass(abc.ABCMeta)):$/;"	c
 RegistrationError	watson/search.py	/^class RegistrationError(SearchEngineError):$/;"	c
@@ -393,11 +394,11 @@ SIZES	apps/frontpage/models.py	/^    SIZES = [(3, 1), (3, 1), (3, 1), (3, 2),$/;
 SPECIAL	apps/issues/models.py	/^    SPECIAL = 3$/;"	v	class:Issue
 STAGING_FOLDER	apps/legacy_db/export_content_and_images.py	/^STAGING_FOLDER = os.path.join(settings.STAGING_ROOT, 'STAGING', 'IMAGES')$/;"	v
 STAGING_ROOT	universitas/base.py	/^STAGING_ROOT = '\/srv\/fotoarkiv_universitas\/'$/;"	v
-STATICFILES_DIRS	universitas/base.py	/^STATICFILES_DIRS = [$/;"	v
+STATICFILES_DIRS	universitas/base.py	/^STATICFILES_DIRS = ['\/build\/']$/;"	v
 STATICFILES_FINDERS	universitas/base.py	/^STATICFILES_FINDERS = [$/;"	v
 STATICFILES_STORAGE	universitas/base.py	/^STATICFILES_STORAGE = 'utils.aws_custom_storage.StaticStorage'$/;"	v
 STATICFILES_STORAGE	universitas/local.py	/^STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'$/;"	v
-STATIC_ROOT	universitas/local.py	/^STATIC_ROOT = join_path(PROJECT_DIR, 'static')$/;"	v
+STATIC_ROOT	universitas/local.py	/^STATIC_ROOT = '\/app\/static\/'$/;"	v
 STATIC_URL	universitas/base.py	/^STATIC_URL = "http:\/\/{host}\/{static}\/".format($/;"	v
 STATIC_URL	universitas/local.py	/^STATIC_URL = '\/static\/'$/;"	v
 STATUS_CHOICES	apps/adverts/models.py	/^    STATUS_CHOICES = [$/;"	v	class:Advert
@@ -972,6 +973,7 @@ do_uninstall	watson/backends.py	/^    def do_uninstall(self):$/;"	m	class:Search
 document_root	universitas/dev_urls.py	/^    document_root=settings.MEDIA_ROOT$/;"	v
 drop_model_tables	apps/legacy_db/export_content_and_images.py	/^def drop_model_tables(*models):$/;"	f
 dummy_image_advert	apps/adverts/dummy_image_advert.py	/^def dummy_image_advert(width, height, watermarktext, labeltext):$/;"	f
+echoerr	wait-for-it.sh	/^echoerr() { if [[ $QUIET -ne 1 ]]; then echo "$@" 1>&2; fi }$/;"	f
 editable	apps/adverts/models.py	/^        editable=False,$/;"	v	class:Advert
 editable	apps/frontpage/models.py	/^        editable=False,$/;"	v	class:StoryModule.Meta
 editable	apps/issues/models.py	/^        editable=False,$/;"	v	class:Issue
@@ -993,7 +995,7 @@ end_tag	apps/markup/models.py	/^    end_tag = models.CharField($/;"	v	class:Inli
 end_time	apps/adverts/models.py	/^    end_time = models.DateTimeField($/;"	v	class:Advert
 engine_slug	watson/models.py	/^    engine_slug = models.CharField($/;"	v	class:SearchEntry
 environment_variable	universitas/setting_helpers.py	/^def environment_variable(keyname):$/;"	f
-environment_variable	utils/setting_helpers.py	/^def environment_variable(keyname):$/;"	f
+environment_variable	utils/setting_helpers.py	/^def environment_variable(keyname, default=''):$/;"	f
 epost	apps/legacy_db/models.py	/^    epost = models.CharField(max_length=255)$/;"	v	class:Eposttinging
 epost	apps/legacy_db/models.py	/^    epost = models.CharField(max_length=255, blank=True)$/;"	v	class:InnleggAbstract
 epost_sendt	apps/legacy_db/models.py	/^    epost_sendt = models.DateTimeField(blank=True, null=True)$/;"	v	class:DiskSvar
@@ -2124,6 +2126,8 @@ readonly_fields	apps/stories/admin.py	/^    readonly_fields = [$/;"	v	class:Stor
 ready	apps/photo/appconf.py	/^    def ready(self):$/;"	m	class:PhotoAppConfig
 ready	apps/stories/appconf.py	/^    def ready(self):$/;"	m	class:StoriesAppConfig
 rebuild_index_for_model	watson/management/commands/buildwatson.py	/^def rebuild_index_for_model(model_, engine_slug_, verbosity_):$/;"	f
+redis_host	universitas/base.py	/^redis_host = 'redis'$/;"	v
+redis_port	universitas/base.py	/^redis_port = 6379$/;"	v
 reduce_opacity	apps/adverts/dummy_image_advert.py	/^def reduce_opacity(im, opacity):$/;"	f
 regex_from_word	watson/backends.py	/^def regex_from_word(word):$/;"	f
 register	apps/adverts/templatetags/advert_channel.py	/^register = template.Library()$/;"	v
@@ -2164,6 +2168,7 @@ reverse_code	apps/markup/migrations/0002_load_markup_tags.py	/^            rever
 reverse_code	apps/stories/migrations/0003_data_load_sections_and_storytypes.py	/^            reverse_code=unload_fixture('stories', ['Section', 'StoryType']),$/;"	v	class:Migration
 reverse_code	apps/stories/migrations/0021_data_generate_slugs.py	/^            reverse_code=backwards,$/;"	v	class:Migration
 root	apps/frontpage/models.py	/^    def root(self):$/;"	m	class:FrontpageManager
+run	docker-entrypoint.sh	/^function run {$/;"	f
 s3_md5	apps/photo/models.py	/^def s3_md5(s3key, blocksize=65536):$/;"	f
 sak	apps/legacy_db/models.py	/^    sak = models.ForeignKey(Sak, db_column='id_sak')$/;"	v	class:Fakta
 sak	apps/legacy_db/models.py	/^    sak = models.ForeignKey(Sak, db_column='id_sak', blank=True, null=True)$/;"	v	class:Bilde
@@ -2383,6 +2388,7 @@ urlpatterns	apps/search/urls.py	/^urlpatterns = [$/;"	v
 urlpatterns	universitas/redirect_urls.py	/^urlpatterns = [$/;"	v
 urlpatterns	universitas/urls.py	/^urlpatterns = [$/;"	v
 urlpatterns	watson/urls.py	/^urlpatterns = [$/;"	v
+usage	wait-for-it.sh	/^usage()$/;"	f
 validate_columns	apps/frontpage/models.py	/^    def validate_columns(value, minvalue=1, maxvalue=12):$/;"	m	class:FrontPageModule
 validate_height	apps/frontpage/models.py	/^    def validate_height(value, minvalue=1, maxvalue=12):$/;"	m	class:FrontPageModule
 validate_url	apps/stories/models.py	/^    def validate_url(cls, href):$/;"	m	class:InlineLink
@@ -2523,6 +2529,8 @@ videos	apps/stories/models.py	/^    def videos(self):$/;"	m	class:ElementQuerySe
 videos	apps/stories/models.py	/^    def videos(self):$/;"	m	class:TextContent
 vignette	apps/frontpage/models.py	/^    vignette = models.CharField($/;"	v	class:FrontpageStory
 visit_page	apps/stories/models.py	/^    def visit_page(self, request):$/;"	m	class:Story
+wait_for	wait-for-it.sh	/^wait_for()$/;"	f
+wait_for_wrapper	wait-for-it.sh	/^wait_for_wrapper()$/;"	f
 watermark	apps/adverts/dummy_image_advert.py	/^def watermark(img, mark, position, opacity=1):$/;"	f
 widget_attrs	apps/contributors/autocomplete_light_registry.py	/^    widget_attrs={$/;"	v
 widget_attrs	apps/photo/autocomplete_light_registry.py	/^    widget_attrs={$/;"	v

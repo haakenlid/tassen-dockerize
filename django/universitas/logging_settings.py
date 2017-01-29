@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """Configurations for logging"""
-from utils.setting_helpers import environment_variable, join_path
+from utils.setting_helpers import join_path
 __all__ = ['LOGGING']
 
-LOG_FOLDER = join_path(environment_variable('SOURCE_FOLDER'), '..', 'logs')
+LOG_FOLDER = '/logs/'
 
 
 def logfile_handler(filename, debug=False, **kwargs):
@@ -69,7 +69,7 @@ LOGGING['root'] = {
     'handlers': ['console', 'errorlog', 'debuglog', 'sentry'],
 }
 LOGGING['loggers'] = {
-   'werkzeug': {
+    'werkzeug': {
         'level': 'DEBUG', 'propagate': True,
         'handlers': ['console'],
     },

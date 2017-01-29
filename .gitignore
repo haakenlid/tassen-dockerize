@@ -1,0 +1,4 @@
+static/
+media/
+build/
+dev.env

@@ -5,11 +5,12 @@ services:
     volumes:
       - ./django:/app
       - ./static:/static
+      - ./media:/media
       - ./logs:/logs
       - ./build:/build
     env_file: dev.env
 
-  uwsgi:
+  web:
     extends: django
     restart: always
     command: uwsgi
@@ -19,6 +20,8 @@ services:
       - rabbit
     expose:
       - "8000"
+    ports:
+      - "8000:8000"
 
   celery:
     extends: django
@@ -29,15 +32,24 @@ services:
       - redis
       - rabbit
 
+  celerybeat:
+    extends: django
+    restart: always
+    command: celerybeat
+    links:
+      - rabbit
+
   nginx:
     build: ./nginx/
     restart: always
     ports:
-      - "8000:80"
+      - "8080:80"
     volumes:
       - ./static:/static
+      - ./media:/media
+      - ./logs:/logs
     links: 
-      - uwsgi
+      - web
 
   nodejs:
     build: ./nodejs/

@@ -15,11 +15,15 @@ case $1 in
     ;;
   runserver)
     echo 'starting django runserver'
-    run 'django-admin runserver 0.0.0.0:8000'
+    run 'django-admin runserver_plus'
     ;;
   uwsgi)
     echo 'starting django uwsgi'
     run 'uwsgi uwsgi.ini'
+    ;;
+  celerybeat)
+    echo 'starting celery beat'
+    run 'celery beat -A universitas'
     ;;
   celery)
     echo 'starting celery workers'
