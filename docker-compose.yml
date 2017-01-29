@@ -6,6 +6,7 @@ services:
       - ./django:/app
       - ./static:/static
       - ./logs:/logs
+      - ./build:/build
     env_file: dev.env
 
   uwsgi:
@@ -15,6 +16,7 @@ services:
     links:
       - postgres
       - redis
+      - rabbit
     expose:
       - "8000"
 
@@ -22,6 +24,10 @@ services:
     extends: django
     restart: always
     command: celery
+    links:
+      - postgres
+      - redis
+      - rabbit
 
   nginx:
     build: ./nginx/
@@ -30,6 +36,16 @@ services:
       - "8000:80"
     volumes:
       - ./static:/static
+    links: 
+      - uwsgi
+
+  nodejs:
+    build: ./nodejs/
+    volumes:
+      - ./build:/build
+      - ./nodejs:/app
+      - node_modules:/app/node_modules
+    command: "true"
 
   # RabbitMQ message queue
   # default username:password is guest:guest
@@ -51,3 +67,4 @@ services:
 volumes:
   redisdata: {}
   pgdata: {}
+  node_modules: {}

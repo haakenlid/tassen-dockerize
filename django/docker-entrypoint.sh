@@ -1,23 +1,16 @@
 #!/bin/bash
 
-RUNAS=lancelot  # user to exec as
-POSTGRES='db:5432'
-ARG=${1:-runserver}
-shift  # discard first argument
-
 function run {
   # Start process as unprivileged user
   # Use `exec` to replace original process.
   # This makes it possible for Docker to send signals to the process.
-  exec su -m $RUNAS -c "$@"
+  exec su -p $(id -nu 1000) -c "$@"
 }
 
-case $ARG in
-  bash)
-    exec /bin/bash
-    ;;
+case $1 in
   django-admin)
-    /app/wait-for-it.sh $POSTGRES
+    /app/wait-for-it.sh postgres:5432
+    shift  # discard first argument
     run "django-admin $@"
     ;;
   runserver)
@@ -33,8 +26,7 @@ case $ARG in
     run 'celery worker -A universitas'
     ;;
   *)
-    echo "unknown argument \"$ARG\". Try django-admin | runserver | migrate | celery | bash"
-    exit 1
+    exec "$@"
     ;;
 esac
 

@@ -4,14 +4,12 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var BundleTracker = require('webpack-bundle-tracker');
 
-var dest = __dirname + '/build/';
-var source = __dirname + '/src/';
 
 module.exports = {
   plugins: [
     new ExtractTextPlugin("stylesheets/universitas-[hash:12].css"),
     new webpack.ProvidePlugin({$: "jquery", jQuery: "jquery"}),
-    new BundleTracker({indent: '  ', filename: 'webpack-stats.json'}),
+    new BundleTracker({indent: ' ', path: __dirname, filename: '../build/webpack-stats.json'}),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin()
   ],
@@ -29,7 +27,7 @@ module.exports = {
     vendor: './src/javascripts/vendor.js'
   },
   output: {
-    path: dest,
+    path: '/build/',
     filename: 'javascripts/[name]-[hash:12].js'
   },
   module: {

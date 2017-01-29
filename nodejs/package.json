@@ -1,8 +1,9 @@
 {
   "name": "universitas.no",
-  "version": "1.0.0",
+  "author": "Håken Lid",
+  "license": "ISC",
+  "version": "1.1.0",
   "description": "frontend assets universitas",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config ./build.webpack.config.js",
@@ -12,8 +13,6 @@
     "type": "git",
     "url": "gh:universitas/tassen"
   },
-  "author": "Håken Lid",
-  "license": "ISC",
   "dependencies": {
     "css-loader": "^0.26.0",
     "extract-text-webpack-plugin": "^1.0.1",
