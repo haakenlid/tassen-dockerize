@@ -1,6 +1,7 @@
 """Development settings and globals."""
 
 from .base import *  # NOQA
+from .base import environment_variable, join_path, BASE_DIR
 
 DEBUG = True
 THUMBNAIL_DEBUG = True
@@ -17,6 +18,9 @@ EMAIL_USE_TLS = True
 NOTEBOOK_ARGUMENTS = [
     '--no-browser',
     '--port=8888',
+    '--ip=0.0.0.0',
+    '--NotebookApp.token=""',
+    '--NotebookApp.password=""',
     '--notebook-dir',
-    join_path(PROJECT_DIR, 'notebooks')
+    join_path(BASE_DIR, 'notebooks')
 ]
