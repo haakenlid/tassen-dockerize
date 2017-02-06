@@ -2,6 +2,9 @@
 
 Source code for the newspaper universitas.no
 
+[![Code Health](https://landscape.io/github/haakenlid/tassen-dockerize/master/landscape.svg?style=flat)](https://landscape.io/github/haakenlid/tassen-dockerize/master)
+
+
 ## The most important tools in our stack
 - [Django](https://www.djangoproject.com/) The web framework for perfectionists with deadlines
 - [Foundation](http://foundation.zurb.com) Responsive front-end framework
@@ -17,6 +20,4 @@ Source code for the newspaper universitas.no
 - [Redis](http://redis.io) An in-memory data structure store, used as database, cache and message broker
 - [Ubuntu Server](http://www.ubuntu.com/server) Debian-based Linux operating system
 
-
-[![Code Health](https://landscape.io/github/haakenlid/tassen-dockerize/master/landscape.svg?style=flat)](https://landscape.io/github/haakenlid/tassen-dockerize/master)
 
