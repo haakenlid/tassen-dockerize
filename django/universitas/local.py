@@ -2,7 +2,7 @@
 
 from .dev import *  # noqa
 from .dev import (
-    DEBUG, INSTALLED_APPS, MIDDLEWARE_CLASSES, environment_variable
+    DEBUG, INSTALLED_APPS, MIDDLEWARE_CLASSES, DATABASES,
 )
 
 DEFAULT_FROM_EMAIL = 'localemail@localhost'
@@ -16,7 +16,6 @@ INSTALLED_APPS += ['debug_toolbar', ]
 MIDDLEWARE_CLASSES += ['debug_toolbar.middleware.DebugToolbarMiddleware', ]
 
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
-INTERNAL_IPS = environment_variable('DEBUG_TOOLBAR_INTERNAL_IPS').split(' ')
 
 # Use File system in local development instead of Amanon S3
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'

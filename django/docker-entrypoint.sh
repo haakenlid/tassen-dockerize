@@ -24,6 +24,10 @@ case $1 in
     echo 'starting django uwsgi'
     run 'uwsgi uwsgi.ini'
     ;;
+  uwsgi-dev)
+    echo 'starting django dev uwsgi'
+    run 'uwsgi uwsgi.dev.ini'
+    ;;
   celerybeat)
     echo 'starting celery beat'
     run 'celery beat -A universitas'

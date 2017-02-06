@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 """Configurations for logging"""
-from utils.setting_helpers import join_path
+from .setting_helpers import joinpath as path
 __all__ = ['LOGGING']
 
-LOG_FOLDER = '/logs/'
+LOG_FOLDER = path('..', 'logs')
 
 
 def logfile_handler(filename, debug=False, **kwargs):
     config = {
-        'filename': join_path(LOG_FOLDER, filename),
+        'filename': path(LOG_FOLDER, filename),
         'filters': ['debug_on'] if debug else ['debug_off'],
         'level': 'DEBUG' if debug else 'WARNING',
         'class': 'logging.FileHandler',

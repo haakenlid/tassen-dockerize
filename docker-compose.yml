@@ -13,7 +13,7 @@ services:
   web:
     extends: django
     restart: always
-    command: uwsgi
+    command: uwsgi-dev
     links:
       - postgres
       - redis

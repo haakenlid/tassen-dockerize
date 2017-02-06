@@ -38,6 +38,7 @@ fuzzywuzzy
 python-Levenshtein
 diff-match-patch
 awesome-slugify
+faker
 
 # TASK RUNNER
 celery
@@ -49,9 +50,9 @@ raven
 uWSGI
 
 # TESTING
-django-pytest
 pytest
 pytest-xdist
+pytest-django
 selenium
 
 # DEBUGGING AND DEVELOPMENT

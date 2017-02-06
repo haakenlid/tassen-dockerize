@@ -423,4 +423,4 @@ class Alias(CachedTag):
             self.pattern,
             self.replacement,
             content,
-            flags=self.flags_sum)
+            flags=self.flags_sum &~ re.LOCALE)

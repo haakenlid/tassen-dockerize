@@ -1,25 +1,25 @@
 """ Django settings for universitas_no project. """
 # -*- coding: utf-8 -*-
 
-from os.path import dirname
 # import django.conf.global_settings as DEFAULT_SETTINGS
 from django.utils.translation import ugettext_lazy as _
-from utils.setting_helpers import environment_variable, join_path
+from .setting_helpers import Environment, joinpath as path
 from .logging_settings import LOGGING  # NOQA
 # from .celery_settings import *  # NOQA
 
-SITE_URL = environment_variable('SITE_URL')
-SECRET_KEY = environment_variable('SECRET_KEY')
-SITE_URL = environment_variable('SITE_URL')
-ALLOWED_HOSTS = environment_variable('ALLOWED_HOSTS').split()
-DEBUG = False
+env = Environment(strict=False)
+
+DEBUG = True if env.debug else False
+SITE_URL = env.site_url or 'www.example.com'
+SECRET_KEY = env.secret_key
+ALLOWED_HOSTS = env.allowed_hosts.split() or '*'
 
 # SENTRY
-RAVEN_CONFIG = {'dsn': environment_variable('RAVEN_DSN'), }
+RAVEN_CONFIG = {'dsn': env.raven_dsn, }
 SENTRY_CLIENT = 'raven.contrib.django.raven_compat.DjangoClient'
 
-redis_host = 'redis'
-redis_port = 6379
+redis_host = env.redis_host or 'redis'
+redis_port = env.redis_port or 6379
 
 # CELERY TASK RUNNER
 CELERY_TASK_DEFAULT_QUEUE = SITE_URL
@@ -36,9 +36,9 @@ CELERY_BROKER_POOL_LIMIT = 1
 CELERY_BROKER_CONNECTION_TIMEOUT = 10
 
 # AMAZON WEB SERVICES
-AWS_STORAGE_BUCKET_NAME = environment_variable('AWS_STORAGE_BUCKET_NAME')
-AWS_ACCESS_KEY_ID = environment_variable('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = environment_variable('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = env.aws_storage_bucket_name
+AWS_ACCESS_KEY_ID = env.aws_access_key_id
+AWS_SECRET_ACCESS_KEY = env.aws_secret_access_key
 AWS_S3_HOST = 's3.eu-central-1.amazonaws.com'
 AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME  # cname
 AWS_S3_SECURE_URLS = False
@@ -104,9 +104,9 @@ MIDDLEWARE_CLASSES = [
 ]
 
 # Prodsys for universitas.
-PRODSYS_USER = environment_variable('PRODSYS_USER')
-PRODSYS_PASSWORD = environment_variable('PRODSYS_PASSWORD')
-PRODSYS_URL = environment_variable('PRODSYS_URL')
+PRODSYS_USER = env.prodsys_user
+PRODSYS_PASSWORD = env.prodsys_password
+PRODSYS_URL = env.prodsys_url
 
 WSGI_APPLICATION = 'universitas.wsgi.application'
 ROOT_URLCONF = 'universitas.urls'
@@ -137,19 +137,19 @@ DATABASE_ROUTERS = ['apps.legacy_db.router.ProdsysRouter']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': environment_variable('DB_NAME'),
-        'USER': environment_variable('DB_USER'),
-        'PASSWORD': environment_variable('DB_PASSWORD'),
-        'HOST': environment_variable('DB_HOST', 'localhost'),
-        'PORT': '5432',       # Set to empty string for default.
+        'NAME': env.pg_name or 'postgres',
+        'USER': env.pg_user or 'postgres',
+        'PASSWORD': env.pg_password or 'postgres',
+        'HOST': env.pg_host or 'postgres',
+        'PORT': env.pg_port or '',       # Set to empty string for default.
     },
     'prodsys': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': environment_variable('PRODSYS_DB_NAME'),
-        'USER': environment_variable('PRODSYS_DB_USER'),
-        'PASSWORD': environment_variable('PRODSYS_DB_PASSWORD'),
-        'HOST': environment_variable('PRODSYS_DB_HOST'),
-        'PORT': '',       # Set to empty string for default.
+        'NAME': env.prodsys_db_name,
+        'USER': env.prodsys_db_user,
+        'PASSWORD': env.prodsys_db_password,
+        'HOST': env.prodsys_db_host,
+        'PORT': env.prodsys_db_port or '',
     }
 }
 # CACHE
@@ -173,17 +173,14 @@ CACHES = {
 
 # FOLDERS
 # source code folder
-BASE_DIR = environment_variable('SOURCE_FOLDER')
-# outside of repo
-PROJECT_DIR = dirname(BASE_DIR)
-
+BASE_DIR = path()
 
 # Django puts generated translation files here.
-LOCALE_PATHS = [join_path(BASE_DIR, 'translation'), ]
+LOCALE_PATHS = [path('translation')]
 # Extra path to collect static assest such as javascript and css
 STATICFILES_DIRS = ['/build/']
 # Project wide fixtures to be loaded into database.
-FIXTURE_DIRS = [join_path(BASE_DIR, 'fixtures'), ]
+FIXTURE_DIRS = [path('fixtures')]
 # Look for byline images here
 BYLINE_PHOTO_DIR = '/srv/fotoarkiv_universitas/byline/'
 STAGING_ROOT = '/srv/fotoarkiv_universitas/'
@@ -209,7 +206,7 @@ TIME_INPUT_FORMATS = ('%H:%M', '%H', '%H:%M:%S', '%H.%M')
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [join_path(BASE_DIR, 'templates'), ],
+        'DIRS': [path('templates'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

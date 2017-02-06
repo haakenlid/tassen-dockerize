@@ -17,6 +17,8 @@ def environment_variable(keyname, default=''):
     return os.environ.get(keyname) or default
 
 
+
+
 def join_path(*paths):
     """Shortcut for joining paths. cross os compatible"""
     return os.path.normpath(os.path.join(*paths))
