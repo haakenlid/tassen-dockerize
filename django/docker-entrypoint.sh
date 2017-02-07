@@ -30,7 +30,7 @@ case $1 in
     ;;
   celerybeat)
     echo 'starting celery beat'
-    run 'celery beat -A universitas'
+    run 'celery beat -A universitas --pidfile=/tmp/beat.pid --schedule=/tmp/celerybeat-schedule'
     ;;
   celery)
     echo 'starting celery workers'
