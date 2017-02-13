@@ -1,4 +1,4 @@
-version: '2'
+version: '2.1'
 services:
   django:
     build: ./django/
@@ -51,7 +51,7 @@ services:
       - django_static:/var/static/
       - django_media:/var/media/
     ports:
-      - "80:80"
+      - "${EXTERNAL_PORT:-8080}:80"
 
   nodejs:
     build: ./nodejs/

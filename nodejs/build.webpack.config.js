@@ -4,7 +4,7 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var BundleTracker = require('webpack-bundle-tracker');
 
-var build_dir = process.env.BUILD_DIR
+var build_dir = path.join(__dirname, "build/")
 
 
 module.exports = {
