@@ -3,8 +3,7 @@
 from .base import *  # NOQA
 from .setting_helpers import Environment, joinpath as path
 
-DEBUG = True
-THUMBNAIL_DEBUG = True
+THUMBNAIL_DEBUG = DEBUG
 ROOT_URLCONF = 'universitas.dev_urls'
 
 # EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'

@@ -9,7 +9,7 @@ from .logging_settings import LOGGING  # NOQA
 
 env = Environment(strict=False)
 
-DEBUG = True if env.debug else False
+DEBUG = True if env.debug.lower() == 'true' else False
 SITE_URL = env.site_url or 'www.example.com'
 SECRET_KEY = env.secret_key
 ALLOWED_HOSTS = env.allowed_hosts.split() or '*'
@@ -178,7 +178,7 @@ BASE_DIR = path()
 # Django puts generated translation files here.
 LOCALE_PATHS = [path('translation')]
 # Extra path to collect static assest such as javascript and css
-STATICFILES_DIRS = ['/build/']
+STATICFILES_DIRS = [env.BUILD_DIR]
 # Project wide fixtures to be loaded into database.
 FIXTURE_DIRS = [path('fixtures')]
 # Look for byline images here
@@ -232,6 +232,6 @@ WEBPACK_LOADER = {
     'DEFAULT': {
         'CACHE': not DEBUG,
         'BUNDLE_DIR_NAME': './',  # must end with slash
-        'STATS_FILE': '/build/webpack-stats.json',
+        'STATS_FILE': env.BUILD_DIR + 'webpack-stats.json',
     }
 }

@@ -22,15 +22,15 @@ case $1 in
     ;;
   uwsgi)
     echo 'starting django uwsgi'
-    run 'uwsgi uwsgi.ini'
-    ;;
-  uwsgi-dev)
-    echo 'starting django dev uwsgi'
-    run 'uwsgi uwsgi.dev.ini'
+    if [[ $DEBUG -eq 'True' ]]; then
+      run 'uwsgi uwsgi.dev.ini'
+    else 
+      run 'uwsgi uwsgi.ini'
+    fi
     ;;
   celerybeat)
     echo 'starting celery beat'
-    run 'celery beat -A universitas'
+    run 'celery beat -A universitas --pidfile= --schedule=/tmp/celerybeat-schedule'
     ;;
   celery)
     echo 'starting celery workers'

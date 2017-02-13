@@ -7,7 +7,7 @@ RUN groupadd --gid 1000 django \
 
 # install ghostscript for pdf operations
 RUN apt-get update && apt-get install -y \
-  ghostscript 
+  ghostscript
 
 # install python dependencies for django
 COPY requirements.txt /app/requirements.txt
@@ -17,5 +17,6 @@ RUN pip install -r /app/requirements.txt
 COPY install-jupyter.sh /app/install-jupyter.sh
 RUN /app/install-jupyter.sh
 
+RUN cd /var && mkdir media static logs && chown django media static logs
 WORKDIR /app/
 ENTRYPOINT ["/app/docker-entrypoint.sh"]

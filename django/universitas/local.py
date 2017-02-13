@@ -2,9 +2,8 @@
 
 from .dev import *  # noqa
 from .dev import (
-    DEBUG, INSTALLED_APPS, MIDDLEWARE_CLASSES, DATABASES,
+    WEBPACK_LOADER, DEBUG, INSTALLED_APPS, MIDDLEWARE_CLASSES, DATABASES, env
 )
-
 DEFAULT_FROM_EMAIL = 'localemail@localhost'
 # DATABASES['prodsys'].update({'HOST': 'localhost', })
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -22,27 +21,24 @@ DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 THUMBNAIL_STORAGE = DEFAULT_FILE_STORAGE
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
-MEDIA_ROOT = '/media/'
-STATIC_ROOT = '/static/'
+MEDIA_ROOT = env.MEDIA_DIR or '/media/'
+STATIC_ROOT = env.STATIC_DIR or '/static/'
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 
-DEBUG_TOOLBAR_CONFIG = {
-    "SHOW_TOOLBAR_CALLBACK": lambda request: True,
-}
+if DEBUG:
+    DEBUG_TOOLBAR_CONFIG = {
+        "SHOW_TOOLBAR_CALLBACK": lambda request: True
+    }
 
 DATABASES['prodsys'] = {
     'ENGINE': 'django.db.backends.sqlite3',
     'NAME': 'prodsys',
 }
 
-WEBPACK_LOADER = {
-    'DEFAULT': {
-        'CACHE': not DEBUG,
-        'BUNDLE_DIR_NAME': './',  # must end with slash
-        'STATS_FILE': '/build/webpack-stats.json',
-        'POLL_INTERVAL': 0.1,
-        'TIMEOUT': None,
-        'IGNORE': ['.+\.hot-update.js', '.+\.map']
-    }
-}
+WEBPACK_LOADER['DEFAULT'].update({
+    'CACHE': not DEBUG,
+    'POLL_INTERVAL': 0.1,
+    'TIMEOUT': None,
+    'IGNORE': ['.+\.hot-update.js', '.+\.map']
+})

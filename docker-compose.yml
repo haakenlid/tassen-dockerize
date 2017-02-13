@@ -4,30 +4,35 @@ services:
     build: ./django/
     volumes:
       - ./django:/app
-      - ./static:/static
-      - ./media:/media
-      - ./logs:/logs
-      - ./build:/build
-    env_file: dev.env
+      - ./logs:/var/logs
+      - webpack_build:/var/build/
+      - django_static:/var/static/
+      - django_media:/var/media/
+    env_file:
+      - ./common.env
+      - ./deployment.env
+    environment:
+      - BUILD_DIR=/var/build/
+      - LOG_DIR=/var/logs/
+      - STATIC_DIR=/var/static/
+      - MEDIA_DIR=/var/media/
 
   web:
     extends: django
     restart: always
-    command: uwsgi-dev
-    links:
+    command: uwsgi
+    expose:
+      - "8000"  # wsgi on tcp socket
+    depends_on:
       - postgres
       - redis
       - rabbit
-    expose:
-      - "8000"
-    ports:
-      - "8000:8000"
 
   celery:
     extends: django
     restart: always
     command: celery
-    links:
+    depends_on:
       - postgres
       - redis
       - rabbit
@@ -36,28 +41,27 @@ services:
     extends: django
     restart: always
     command: celerybeat
-    links:
+    depends_on:
       - rabbit
 
   nginx:
     build: ./nginx/
     restart: always
-    ports:
-      - "8080:80"
     volumes:
-      - ./static:/static
-      - ./media:/media
-      - ./logs:/logs
-    links: 
-      - web
+      - django_static:/var/static/
+      - django_media:/var/media/
+    ports:
+      - "80:80"
 
   nodejs:
     build: ./nodejs/
     volumes:
-      - ./build:/build
-      - ./nodejs:/app
-      - node_modules:/app/node_modules
-    command: "true"
+      - ./nodejs:/app/
+      - webpack_build:/var/build/
+      - node_modules:/app/node_modules/
+    environment:
+      - BUILD_DIR=/var/build/
+    command: "true"  # noop
 
   # RabbitMQ message queue
   # default username:password is guest:guest
@@ -74,9 +78,12 @@ services:
   redis:
     image: redis:3.2
     volumes:
-      - redisdata:/data
+      - redisdata:/data/
 
 volumes:
   redisdata: {}
   pgdata: {}
   node_modules: {}
+  webpack_build: {}
+  django_media: {}
+  django_static: {}
