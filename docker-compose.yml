@@ -20,13 +20,15 @@ services:
   web:
     extends: django
     restart: always
-    command: uwsgi
+    command: runserver
     expose:
       - "8000"  # wsgi on tcp socket
     depends_on:
       - postgres
       - redis
       - rabbit
+    ports:
+      - "8000:8000"
 
   celery:
     extends: django
@@ -53,15 +55,19 @@ services:
     ports:
       - "${EXTERNAL_PORT:-8080}:80"
 
-  nodejs:
-    build: ./nodejs/
+  webpack:
+    build: ./webpack/
     volumes:
-      - ./nodejs:/app/
+      - ./webpack:/app/
       - webpack_build:/var/build/
       - node_modules:/app/node_modules/
     environment:
       - BUILD_DIR=/var/build/
-    command: "true"  # noop
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"
+    command: "dev-server"
 
   # RabbitMQ message queue
   # default username:password is guest:guest

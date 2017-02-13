@@ -230,7 +230,7 @@ STATICFILES_FINDERS = [
 ]
 WEBPACK_LOADER = {
     'DEFAULT': {
-        'CACHE': not DEBUG,
+        'CACHE': True,
         'BUNDLE_DIR_NAME': './',  # must end with slash
         'STATS_FILE': env.BUILD_DIR + 'webpack-stats.json',
     }

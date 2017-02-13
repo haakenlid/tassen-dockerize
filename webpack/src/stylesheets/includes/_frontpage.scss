@@ -27,13 +27,13 @@ $minimum-headline: 1.5rem;
     @extend #{$medium-cols};
     @extend #{$small-cols};
     @if $columns <= 6 {
-      @media #{$small-only} {
+      @include breakpoint(small only) {
         .image-block {
           display: none;
         }
       }
     }
-    @media #{$medium-up} {
+    @include breakpoint(medium up) {
     h2 { font-size: $xl*.6; }
     .headline-xs  h1 { font-size: $xs; }
     .headline-s  h1 { font-size: $s; }
@@ -46,14 +46,14 @@ $minimum-headline: 1.5rem;
 
 @for $height from 1 through 4 {
   .#{$rows-slug}-#{$height} {
-    @media #{$small-only} {
+    @include breakpoint(small only) {
       border-top: $separator-line;
       min-height: auto;
     }
-    @media #{$medium-up} {
+    @include breakpoint(medium up) {
       min-height: $block-height-m * $height;
     }
-    @media #{$large-up} {
+    @include breakpoint(large up) {
       min-height: $block-height-l * $height;
     }
   }
@@ -94,7 +94,7 @@ $minimum-headline: 1.5rem;
     }
   }
   .image-block {
-    @media #{$medium-up} {
+    @include breakpoint(medium up) {
       position: relative;
       & + .text-block {
         margin: .5rem 0 .5rem 0;

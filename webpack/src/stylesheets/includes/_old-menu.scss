@@ -148,7 +148,7 @@ body > main{
     max-width: 0;
     overflow: hidden;
     .menu-wrapper:hover & {
-      @media #{$large-up} {
+      @include breakpoint(large up) {
         max-width: $menu-height * 4;
         opacity: 1;
       }

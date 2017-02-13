@@ -24,7 +24,7 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 MEDIA_ROOT = env.MEDIA_DIR or '/media/'
 STATIC_ROOT = env.STATIC_DIR or '/static/'
 MEDIA_URL = '/media/'
-STATIC_URL = '/static/'
+STATIC_URL = 'localhost:8000/static/'
 
 if DEBUG:
     DEBUG_TOOLBAR_CONFIG = {
@@ -38,7 +38,7 @@ DATABASES['prodsys'] = {
 
 WEBPACK_LOADER['DEFAULT'].update({
     'CACHE': not DEBUG,
-    'POLL_INTERVAL': 0.1,
+    'POLL_INTERVAL': 0.5,
     'TIMEOUT': None,
-    'IGNORE': ['.+\.hot-update.js', '.+\.map']
+    # 'IGNORE': ['.+\.hot-update.js', '.+\.map']
 })

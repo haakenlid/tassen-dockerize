@@ -171,11 +171,10 @@
   .bodytext {
     @extend .medium-9;
     @extend .columns;
-    @extend .left;
+    float: left;
   }
 
   .inline-full {
-    @extend .medium-12;
     @extend .columns;
   }
 
@@ -187,14 +186,14 @@
   .inline-left {
     @extend .medium-3;
     @extend .columns;
-    @extend .left;
+    float: left;
   }
 
   .inline-right {
     border-left: $separator-line;
+    float: right;
     @extend .medium-3;
     @extend .columns;
-    @extend .right;
   }
 
   main .row {

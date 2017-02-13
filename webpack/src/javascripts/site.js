@@ -5,5 +5,4 @@ $(function(){
       '<span class="inngangsord">$1</span>'
     );
   });
-
 });

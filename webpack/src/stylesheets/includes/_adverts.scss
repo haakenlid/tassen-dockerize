@@ -2,6 +2,7 @@
 
 $column-width: 180px;
 $column-gutter: 20px;
+$row-width: $grid-row-width;
 
 .content-wrapper {
   max-width: $row-width;
@@ -11,7 +12,7 @@ $column-gutter: 20px;
 }
 
 %column {
-  @extend .show-for-large-up;
+  @extend .show-for-large;
   position: absolute;
   margin: 0 $column-gutter/2;
   width: $column-width;
@@ -29,7 +30,7 @@ $column-gutter: 20px;
   right: 0px;
 }
 
-@media #{$large-up} {
+@include breakpoint(large up) {
   .left-content ~ .main-content {
     margin-left: $column-width + $column-gutter;
   }
