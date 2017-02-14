@@ -1,14 +1,14 @@
 #!/bin/bash
 # Build and demonize docker container
 
-if [[ -n deployment.env ]]; then
+if [[ ! -f deployment.env ]]; then
   cp common.env deployment.env
 fi
 
 case $1 in
   build )
     echo "building"
-    COMPOSE_FILE=docker-compose.yml:docker-compose.production.yml
+    export COMPOSE_FILE=docker-compose.yml:docker-compose.production.yml
     docker-compose build
     docker-compose run --rm webpack build
     docker-compose run --rm web django-admin migrate
@@ -16,7 +16,7 @@ case $1 in
     ;;
   production )
     echo "running universitas production"
-    COMPOSE_FILE=docker-compose.yml:docker-compose.production.yml
+    export COMPOSE_FILE=docker-compose.yml:docker-compose.production.yml
     docker-compose down
     ;;
   development )

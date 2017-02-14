@@ -8,18 +8,17 @@ from .logging_settings import LOGGING  # NOQA
 # from .celery_settings import *  # NOQA
 
 env = Environment(strict=False)
+redis_host = env.redis_host or 'redis'
+redis_port = env.redis_port or 6379
 
 DEBUG = True if env.debug.lower() == 'true' else False
 SITE_URL = env.site_url or 'www.example.com'
 SECRET_KEY = env.secret_key
-ALLOWED_HOSTS = env.allowed_hosts.split() or '*'
+ALLOWED_HOSTS = env.allowed_hosts.split(',') or '*'
 
 # SENTRY
 RAVEN_CONFIG = {'dsn': env.raven_dsn, }
 SENTRY_CLIENT = 'raven.contrib.django.raven_compat.DjangoClient'
-
-redis_host = env.redis_host or 'redis'
-redis_port = env.redis_port or 6379
 
 # CELERY TASK RUNNER
 CELERY_TASK_DEFAULT_QUEUE = SITE_URL
@@ -38,28 +37,9 @@ CELERY_BROKER_URL = 'amqp://guest:guest@rabbit//?heartbeat=30'
 CELERY_BROKER_POOL_LIMIT = 1
 CELERY_BROKER_CONNECTION_TIMEOUT = 10
 
-# AMAZON WEB SERVICES
-AWS_STORAGE_BUCKET_NAME = env.aws_storage_bucket_name
-AWS_ACCESS_KEY_ID = env.aws_access_key_id
-AWS_SECRET_ACCESS_KEY = env.aws_secret_access_key
-AWS_S3_HOST = 's3.eu-central-1.amazonaws.com'
-AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME  # cname
-AWS_S3_SECURE_URLS = False
-AWS_S3_USE_SSL = False
-# AWS_S3_FILE_BUFFER_SIZE = 5242880
-# Buffer size is used to calculate md5 hash for AWS mulitpart uploads
-# if changed, md5 hashes for large files might be wrong
 # STATIC_ROOT = 'static'
 # MEDIA_ROOT = 'media'
-STATICFILES_STORAGE = 'utils.aws_custom_storage.StaticStorage'
-DEFAULT_FILE_STORAGE = 'utils.aws_custom_storage.MediaStorage'
-THUMBNAIL_STORAGE = 'utils.aws_custom_storage.ThumbStorage'
 
-STATIC_URL = "http://{host}/{static}/".format(
-    host=AWS_S3_CUSTOM_DOMAIN, static='static', )
-
-MEDIA_URL = "http://{host}/{media}/".format(
-    host=AWS_S3_CUSTOM_DOMAIN, media='media', )
 
 # CUSTOM APPS
 INSTALLED_APPS = [
