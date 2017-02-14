@@ -1,11 +1,16 @@
 #!/bin/bash
 # Build and demonize docker container
+
+if [[ -n deployment.env ]]; then
+  cp common.env deployment.env
+fi
+
 case $1 in
   build )
     echo "building"
     COMPOSE_FILE=docker-compose.yml:docker-compose.production.yml
     docker-compose build
-    docker-compose run --rm webpack build 
+    docker-compose run --rm webpack build
     docker-compose run --rm web django-admin migrate
     docker-compose run --rm web django-admin collectstatic --noinput
     ;;
@@ -19,7 +24,7 @@ case $1 in
     unset COMPOSE_FILE
     docker-compose down
     ;;
-  * ) 
+  * )
     echo "usage $0 build | $0 production | $0 development"
     exit 1
     ;;
