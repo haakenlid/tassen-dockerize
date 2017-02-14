@@ -1,0 +1,37 @@
+{
+ "status": "done",
+ "chunks": {
+  "vendor": [
+   {
+    "name": "vendor.b61af653fec1.js",
+    "path": "/app/build/vendor.b61af653fec1.js"
+   }
+  ],
+  "site": [
+   {
+    "name": "site.63fbeaaa8333.js",
+    "path": "/app/build/site.63fbeaaa8333.js"
+   }
+  ],
+  "head": [
+   {
+    "name": "head.0fad242d046e.js",
+    "path": "/app/build/head.0fad242d046e.js"
+   }
+  ],
+  "stylesheets": [
+   {
+    "name": "stylesheets.53461c2b9ac2.js",
+    "path": "/app/build/stylesheets.53461c2b9ac2.js"
+   },
+   {
+    "name": "universitas.53461c2b9ac2.css",
+    "path": "/app/build/universitas.53461c2b9ac2.css"
+   },
+   {
+    "name": "universitas.53461c2b9ac2.css.map",
+    "path": "/app/build/universitas.53461c2b9ac2.css.map"
+   }
+  ]
+ }
+}
