@@ -11,4 +11,4 @@ services:
     environment:
       - DEBUG=False
     volumes:
-      - ./build:/app/build/
+      - ./build:/var/build/

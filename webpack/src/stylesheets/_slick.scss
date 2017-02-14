@@ -36,7 +36,7 @@ $slick-dot-size:          1rem               ;// Size of the navigation dots
     }
 }
 
-.slick-slider {
+.slick-dotted.slick-slider {
   margin-bottom: 0;
   overflow: hidden;
 }
@@ -44,20 +44,28 @@ $slick-dot-size:          1rem               ;// Size of the navigation dots
 .slick-active {
   outline: none;
 }
+.slideshow {
+  >.image-container {
+    display: none;
+    &:first-child {
+      display: block;
+    }
+  }
+}
 .slick-dots {
-    @extend %icon;
-    transform: translate(0,-40px);
-    bottom: inherit;
-    top: 0;
-    li.active button:before{
-      opacity: 1;
-    }
-    li button:before {
-      @extend %symbol;
-    }
-    .slideshow:hover & {
-      transform: translate(0,0);
-    }
+  @extend %icon;
+  transform: translate(0,-40px);
+  bottom: inherit;
+  top: 0;
+  li.active button:before{
+    opacity: 1;
+  }
+  li button:before {
+    @extend %symbol;
+  }
+  .slideshow:hover & {
+    transform: translate(0,0);
+  }
 }
 .slick-next {
   @extend %arrow;

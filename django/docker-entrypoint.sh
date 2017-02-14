@@ -8,6 +8,9 @@ function run {
 }
 
 case $1 in
+  migrate)
+    run "django-admin makemigrations && django-admin migrate" 
+    ;;
   jupyter)
     run "django-admin shell_plus --notebook"
     ;;

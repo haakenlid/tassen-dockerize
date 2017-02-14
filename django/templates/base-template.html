@@ -11,11 +11,7 @@
     {% include "_favicons.html" %}
     {% include "_google-analytics.html" %}
     {% block head %}{% endblock head %}
-    {% if debug %}
-      {% render_bundle 'stylesheets' 'js' %}
-    {% else %}
-      {% render_bundle 'stylesheets' 'css' %}
-    {% endif %}
+    {% render_bundle 'stylesheets' %}
     {% render_bundle 'head' 'js' %}
   </head>
 
