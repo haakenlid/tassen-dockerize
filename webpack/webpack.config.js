@@ -1,17 +1,11 @@
-const path = require('path');
-const webpack = require('webpack');
-const BundleTracker = require('webpack-bundle-tracker');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-// const extractSass = new ExtractTextPlugin({
-//   filename: "universitas-[hash:12].css",
-//   disable: process.env.NODE_ENV == "development"
-// });
+const path = require('path')
+const webpack = require('webpack')
+const BundleTracker = require('webpack-bundle-tracker')
 const build_dir = path.join(__dirname, 'build')
 
 module.exports = {
   plugins: [
     new webpack.ProvidePlugin({$: "jquery", jQuery: "jquery"}),
-    // extractSass,
     new BundleTracker({indent: ' ', path: build_dir, filename: 'webpack-stats.json'})
   ],
   module: {
@@ -19,12 +13,13 @@ module.exports = {
       test: /\.(svg|gif|jpg|png|woff|woff2|eot|ttf|svg)$/,
       use: [{
         loader: 'url-loader',
-        query: { name :'assets/[name]-[hash:12].[ext]&limit=10000'}
+        options: {
+          name :'assets/[name]-[hash:12].[ext]',
+          limit: 20000
+        }
       }]
     },{
       test: /\.scss$/,
-      // use: extractSass.extract({
-      //   fallback: 'style-loader',
       use: [
         { loader: "style-loader" },
         { loader: "css-loader" },
@@ -36,8 +31,8 @@ module.exports = {
               "node_modules/slick-carousel/"
             ]
           }
-        }]
-      // }),
+        }
+      ]
     }]
   },
   resolve: {
@@ -56,7 +51,7 @@ module.exports = {
     vendor: 'javascripts/vendor.js'
   },
   output: {
-    path: build_dir,
-    filename: '[name]-[hash:12].js'
+    path: path.join(build_dir, ''),
+    filename: '[name].js'
   },
 }

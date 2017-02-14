@@ -18,31 +18,29 @@ services:
       - MEDIA_DIR=/var/media/
 
   web:
+    command: uwsgi
     extends: django
     restart: always
-    command: uwsgi
     expose:
       - "8000"  # wsgi on tcp socket
     depends_on:
       - postgres
       - redis
       - rabbit
-    ports:
-      - "8000:8000"
 
   celery:
+    command: celery
     extends: django
     restart: always
-    command: celery
     depends_on:
       - postgres
       - redis
       - rabbit
 
   celerybeat:
+    command: celerybeat
     extends: django
     restart: always
-    command: celerybeat
     depends_on:
       - rabbit
 
@@ -63,13 +61,6 @@ services:
       - node_modules:/app/node_modules/
     environment:
       - BUILD_DIR=/app/build/
-    expose:
-      - "3000"
-      - "3001"
-    ports:
-      - "3000:3000"
-      - "3001:3001"
-    command: "dev-server"
 
   # RabbitMQ message queue
   # default username:password is guest:guest

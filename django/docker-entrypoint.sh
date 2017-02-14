@@ -4,7 +4,7 @@ function run {
   # Start process as unprivileged user
   # Use `exec` to replace original process.
   # This makes it possible for Docker to send signals to the process.
-  exec su $(id -nu 1000) -c "$@"
+  exec su $(id -nu 1000) -c "$*"
 }
 
 case $1 in
@@ -13,8 +13,8 @@ case $1 in
     ;;
   django-admin)
     /app/wait-for-it.sh postgres:5432
-    shift  # discard first argument
-    run "django-admin $@"
+    echo "command: $*"
+    run "$*"
     ;;
   runserver)
     echo 'starting django runserver'

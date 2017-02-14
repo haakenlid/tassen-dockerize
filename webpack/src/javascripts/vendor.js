@@ -1,9 +1,10 @@
-const $ = require('jquery');
-require('slick-carousel/slick/slick');
-require('foundation-sites/dist/js/foundation');
-require('foundation-sites/dist/js/plugins/foundation.reveal');
+const $ = require('jquery')
+require('foundation-sites/dist/js/plugins/foundation.core')
+require('foundation-sites/dist/js/plugins/foundation.reveal')
+require('foundation-sites/dist/js/plugins/foundation.util.mediaQuery')
+require('slick-carousel/slick/slick')
 
-$(document).foundation();
+$(document).foundation()
 $(function(){
-  $('.slideshow').slick({ dots:true, arrows:true });
-});
+  $('.slideshow').slick({ dots:true, arrows:true })
+})
