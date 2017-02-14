@@ -20,7 +20,7 @@ services:
   web:
     extends: django
     restart: always
-    command: runserver
+    command: uwsgi
     expose:
       - "8000"  # wsgi on tcp socket
     depends_on:
@@ -59,14 +59,16 @@ services:
     build: ./webpack/
     volumes:
       - ./webpack:/app/
-      - webpack_build:/var/build/
+      - webpack_build:/app/build/
       - node_modules:/app/node_modules/
     environment:
-      - BUILD_DIR=/var/build/
+      - BUILD_DIR=/app/build/
     expose:
       - "3000"
+      - "3001"
     ports:
       - "3000:3000"
+      - "3001:3001"
     command: "dev-server"
 
   # RabbitMQ message queue

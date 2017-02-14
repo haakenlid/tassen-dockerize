@@ -111,9 +111,9 @@
       .byline {
         @extend %line-below;
         .byline-photo img{
-          width: 80px;
-          height: 80px;
-          border-radius: 40px;
+          width: 6rem;
+          height: 100%;
+          border-radius: 50%;
           border: $separator-line;
         }
         .byline-text{

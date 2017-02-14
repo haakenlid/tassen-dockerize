@@ -2,16 +2,16 @@ const path = require('path');
 const webpack = require('webpack');
 const BundleTracker = require('webpack-bundle-tracker');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const extractSass = new ExtractTextPlugin({
-  filename: "/stylesheets/universitas-[hash:12].css",
-  disable: process.env.NODE_ENV == "development"
-});
-const build_dir = process.env.BUILD_DIR
+// const extractSass = new ExtractTextPlugin({
+//   filename: "universitas-[hash:12].css",
+//   disable: process.env.NODE_ENV == "development"
+// });
+const build_dir = path.join(__dirname, 'build')
 
 module.exports = {
   plugins: [
     new webpack.ProvidePlugin({$: "jquery", jQuery: "jquery"}),
-    extractSass,
+    // extractSass,
     new BundleTracker({indent: ' ', path: build_dir, filename: 'webpack-stats.json'})
   ],
   module: {
@@ -23,11 +23,12 @@ module.exports = {
       }]
     },{
       test: /\.scss$/,
-      use: extractSass.extract({
-        fallback: 'style-loader',
-        use: [{
-          loader: "css-loader"
-        },{
+      // use: extractSass.extract({
+      //   fallback: 'style-loader',
+      use: [
+        { loader: "style-loader" },
+        { loader: "css-loader" },
+        {
           loader: "sass-loader",
           options: {
             includePaths: [
@@ -36,10 +37,12 @@ module.exports = {
             ]
           }
         }]
-      }),
+      // }),
     }]
   },
   resolve: {
+    modules: ['src', 'node_modules'],
+    unsafeCache: true,
     alias: {
       // use unminified jquery source to enable deduping etc.
       // http://stackoverflow.com/a/28989476/1977847
@@ -47,13 +50,13 @@ module.exports = {
     }
   },
   entry: {
-    stylesheets: './src/stylesheets/universitas.scss',
-    site: './src/javascripts/site.js',
-    head: './src/javascripts/head.js',
-    vendor: './src/javascripts/vendor.js'
+    stylesheets: 'stylesheets/universitas.scss',
+    site: 'javascripts/site.js',
+    head: 'javascripts/head.js',
+    vendor: 'javascripts/vendor.js'
   },
   output: {
     path: build_dir,
-    filename: 'javascripts/[name]-[hash:12].js'
+    filename: '[name]-[hash:12].js'
   },
 }
