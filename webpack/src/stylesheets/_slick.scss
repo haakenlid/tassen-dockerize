@@ -15,11 +15,8 @@ $slick-dot-size:          1rem               ;// Size of the navigation dots
 %icon {
     transition: 500ms;
     margin: 0;
-    top: 0;
+    // transform: translate(0,0);
     z-index: 10;
-    .slideshow:hover & {
-      transform: translate(0,0);
-    }
 }
 
 %symbol {
@@ -32,7 +29,6 @@ $slick-dot-size:          1rem               ;// Size of the navigation dots
 
 %arrow {
     @extend %icon;
-    // font-size: 1.5rem;
     height: 100%;
     &:before{
       @extend %symbol;
@@ -52,11 +48,15 @@ $slick-dot-size:          1rem               ;// Size of the navigation dots
     @extend %icon;
     transform: translate(0,-40px);
     bottom: inherit;
+    top: 0;
     li.active button:before{
       opacity: 1;
     }
     li button:before {
       @extend %symbol;
+    }
+    .slideshow:hover & {
+      transform: translate(0,0);
     }
 }
 .slick-next {

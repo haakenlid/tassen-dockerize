@@ -24,7 +24,7 @@ case $1 in
     echo 'starting django uwsgi'
     if [[ $DEBUG -eq 'True' ]]; then
       run 'uwsgi uwsgi.dev.ini'
-    else 
+    else
       run 'uwsgi uwsgi.ini'
     fi
     ;;

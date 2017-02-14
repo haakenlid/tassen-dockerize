@@ -30,6 +30,9 @@ CELERY_RESULT_BACKEND = 'redis://{}:{}/{}'.format(redis_host, redis_port, 5)
 CELERYD_HIJACK_ROOT_LOGGER = False
 CELERY_BROKER_TRANSPORT_OPTIONS = {'fanout_prefix': True}
 
+# CELERYBEAT_PID_FILE = '/var/run/celery-%n.pid'
+# CELERY_SCHEDULE_FILE = '/var/run/celery-schedule-%n'
+
 # Rabbitmq
 CELERY_BROKER_URL = 'amqp://guest:guest@rabbit//?heartbeat=30'
 CELERY_BROKER_POOL_LIMIT = 1
