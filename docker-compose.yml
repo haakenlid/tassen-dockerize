@@ -57,10 +57,10 @@ services:
     build: ./webpack/
     volumes:
       - ./webpack:/app/
-      - webpack_build:/app/build/
+      - webpack_build:/var/build/
       - node_modules:/app/node_modules/
     environment:
-      - BUILD_DIR=/app/build/
+      - BUILD_DIR=/var/build/
 
   # RabbitMQ message queue
   # default username:password is guest:guest
