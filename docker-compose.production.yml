@@ -2,9 +2,9 @@
 version: '2.1'
 services:
   webpack:
-    command: "true"
+    command: "true"  # noop command
     volumes:
-      - ./build:/app/build/
+      - ./build:/var/build/
 
   web:
     command: "uwsgi"

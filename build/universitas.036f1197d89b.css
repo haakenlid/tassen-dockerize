@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,700italic,400,700,300|Roboto+Slab:700,400,300|Roboto:700,700italic,500,500italic,400,400italic,300italic,300);@charset "UTF-8";
 /**
  * Foundation for Sites by ZURB
- * Version 6.3.0
+ * Version 6.3.1
  * foundation.zurb.com
  * Licensed under MIT Open Source
  */
@@ -458,6 +458,7 @@ textarea {
   border-radius: 0; }
 
 select {
+  box-sizing: border-box;
   width: 100%;
   border-radius: 0; }
 
@@ -478,6 +479,9 @@ button {
   line-height: 1; }
   [data-whatinput='mouse'] button {
     outline: 0; }
+
+pre {
+  overflow: auto; }
 
 .is-visible {
   display: block !important; }
@@ -516,6 +520,8 @@ button {
     .row.expanded .row {
       margin-right: auto;
       margin-left: auto; }
+  .row:not(.expanded) .row {
+    max-width: none; }
   .row.gutter-small > .column, .row.gutter-small > .columns, #story .row.gutter-small > .bodytext, #story .row.gutter-small > .inline-full, #story .row.gutter-small > .inline-regular, #story .row.gutter-small > .inline-left, #story .row.gutter-small > .inline-right, .row.gutter-small > .panel-1, .row.gutter-small > .panel-2, .row.gutter-small > .panel-3, .search-results .row.gutter-small > .wrapper {
     padding-right: 0.625rem;
     padding-left: 0.625rem; }
@@ -1270,7 +1276,12 @@ button {
       .row .row {
         margin-right: -0.625rem;
         margin-left: -0.625rem; } }
+    .row .row.collapse {
+      margin-right: 0;
+      margin-left: 0; }
   .row.expanded {
+    max-width: none; }
+  .row:not(.expanded) .row {
     max-width: none; }
   .row.collapse > .column, .row.collapse > .columns, #story .row.collapse > .bodytext, #story .row.collapse > .inline-full, #story .row.collapse > .inline-regular, #story .row.collapse > .inline-left, #story .row.collapse > .inline-right, .row.collapse > .panel-1, .row.collapse > .panel-2, .row.collapse > .panel-3, .search-results .row.collapse > .wrapper {
     padding-right: 0;
@@ -1301,7 +1312,8 @@ button {
       padding-left: 0.625rem; } }
 
 .column.row.row, .row.row.columns, #story .row.row.bodytext, #story .row.row.inline-full, #story .row.row.inline-regular, #story .row.row.inline-left, #story .row.row.inline-right, .row.row.panel-1, .row.row.panel-2, .row.row.panel-3, .search-results .row.row.wrapper {
-  display: flex; }
+  float: none;
+  display: block; }
 
 .row .column.row.row, .row .row.row.columns, .row #story .row.row.bodytext, #story .row .row.row.bodytext, .row #story .row.row.inline-full, #story .row .row.row.inline-full, .row #story .row.row.inline-regular, #story .row .row.row.inline-regular, .row #story .row.row.inline-left, #story .row .row.row.inline-left, .row #story .row.row.inline-right, #story .row .row.row.inline-right, .row .row.row.panel-1, .row .row.row.panel-2, .row .row.row.panel-3, .row .search-results .row.row.wrapper, .search-results .row .row.row.wrapper {
   margin-right: 0;
@@ -1790,6 +1802,16 @@ button {
 .shrink {
   flex: 0 0 auto;
   max-width: 100%; }
+
+.column-block {
+  margin-bottom: 1.25rem; }
+  .column-block > :last-child {
+    margin-bottom: 0; }
+  @media print, screen and (min-width: 40em) {
+    .column-block {
+      margin-bottom: 1.25rem; }
+      .column-block > :last-child {
+        margin-bottom: 0; } }
 
 div,
 dl,
@@ -3549,4 +3571,4 @@ body > main {
       .magasin .search-results .wrapper .search-result .text .lede .section {
         color: #FFB653; }
 
-/*# sourceMappingURL=universitas.53461c2b9ac2.css.map*/
+/*# sourceMappingURL=universitas.036f1197d89b.css.map*/

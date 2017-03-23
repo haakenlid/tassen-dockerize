@@ -9,13 +9,8 @@ services:
       - django_static:/var/static/
       - django_media:/var/media/
     env_file:
-      - ./common.env
-      - ./deployment.env
-    environment:
-      - BUILD_DIR=/var/build/
-      - LOG_DIR=/var/logs/
-      - STATIC_DIR=/var/static/
-      - MEDIA_DIR=/var/media/
+      - ./django/base.env
+      - ./django/local.env
 
   web:
     command: uwsgi
@@ -51,7 +46,7 @@ services:
       - django_static:/var/static/
       - django_media:/var/media/
     ports:
-      - "${EXTERNAL_PORT:-8080}:80"
+      - "${NGINX_PORT:-80}:80"
 
   webpack:
     build: ./webpack/

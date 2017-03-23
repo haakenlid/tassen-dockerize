@@ -8,6 +8,10 @@ function run {
 }
 
 case $1 in
+  load_db)
+    /app/wait-for-it.sh postgres:5432
+    run "django-admin reset_db --noinput && django-admin dbshell < dbdump.sql"
+    ;;
   migrate)
     run "django-admin makemigrations && django-admin migrate" 
     ;;

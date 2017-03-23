@@ -3,34 +3,34 @@
  "chunks": {
   "vendor": [
    {
-    "name": "vendor.b61af653fec1.js",
-    "path": "/app/build/vendor.b61af653fec1.js"
+    "name": "vendor.3441df48b4af.js",
+    "path": "/var/build/vendor.3441df48b4af.js"
    }
   ],
   "site": [
    {
-    "name": "site.63fbeaaa8333.js",
-    "path": "/app/build/site.63fbeaaa8333.js"
+    "name": "site.33ed9b0a3886.js",
+    "path": "/var/build/site.33ed9b0a3886.js"
    }
   ],
   "head": [
    {
-    "name": "head.0fad242d046e.js",
-    "path": "/app/build/head.0fad242d046e.js"
+    "name": "head.26ad37fd837e.js",
+    "path": "/var/build/head.26ad37fd837e.js"
    }
   ],
   "stylesheets": [
    {
-    "name": "stylesheets.53461c2b9ac2.js",
-    "path": "/app/build/stylesheets.53461c2b9ac2.js"
+    "name": "stylesheets.036f1197d89b.js",
+    "path": "/var/build/stylesheets.036f1197d89b.js"
    },
    {
-    "name": "universitas.53461c2b9ac2.css",
-    "path": "/app/build/universitas.53461c2b9ac2.css"
+    "name": "universitas.036f1197d89b.css",
+    "path": "/var/build/universitas.036f1197d89b.css"
    },
    {
-    "name": "universitas.53461c2b9ac2.css.map",
-    "path": "/app/build/universitas.53461c2b9ac2.css.map"
+    "name": "universitas.036f1197d89b.css.map",
+    "path": "/var/build/universitas.036f1197d89b.css.map"
    }
   ]
  }

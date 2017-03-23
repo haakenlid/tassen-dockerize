@@ -8,7 +8,5 @@ services:
 
   web:
     command: "runserver"
-    environment: 
-      - DEBUG=True
     ports:
       - "8000:8000"
